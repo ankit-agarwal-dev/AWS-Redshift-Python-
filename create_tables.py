@@ -1,10 +1,10 @@
-""" Drop and recreate tables in redshift Database 
-This script forst delete table (if exists) and then recreates the tables.
+""" Drop and re-create tables in redshift Database 
+This script delete table (if exists) and then re-creates the tables.
 This file can also be imported as a module and contains the following
 functions:
 
-    * drop_tables - Dropping Tables
-    * create_tables - Creating Tables
+    * drop_tables - Dropping Tables (if exist)
+    * create_tables - Creating Tables (if not exist)
     * main - the main function of the script
 """
 
