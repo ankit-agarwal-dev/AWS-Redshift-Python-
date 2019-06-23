@@ -2,7 +2,7 @@
 This script is to define quesries used to create/drop/insert into database.
 """
 
-# Importing Sytem Libraries
+# Importing System Libraries
 import configparser
 
 
@@ -64,7 +64,8 @@ create table if not exists songs_stg
 """)
 
 # CREATE TABLE (Fact)
-# Since data in songs_plays_fact table can more likely be accessed in isolation hence even style.
+# Since data in songs_plays_fact table can more likely be accessed in isolation 
+# hence distribution style is even.
 
 songplay_table_create = ("""
 create table if not exists songs_plays_fact
@@ -82,11 +83,11 @@ create table if not exists songs_plays_fact
  diststyle even;
  """)
  
-# CREATE TABLE (Diemnsions)
+# CREATE TABLE (Dimensions)
 
 # Since data in users table is very small hence distribution style is choosen as All.
 user_table_create = ("""
-create table if not exists users 
+create table if not exists users_dim 
 (
  user_id          integer primary key,
  first_name       varchar(255) not null,
@@ -98,7 +99,7 @@ diststyle all;
 """)
 
 song_table_create = ("""
-create table if not exists songs
+create table if not exists songs_dim
 (
  song_id          varchar(255) primary key,
  title            varchar(255)  not null,
@@ -109,7 +110,7 @@ create table if not exists songs
  """)
 
 artist_table_create = ("""
-create table if not exists artists
+create table if not exists artists_dim
 (
  artist_id        varchar(255) primary key, 
  name             varchar(255) not null, 
@@ -120,7 +121,7 @@ create table if not exists artists
 """)
 
 time_table_create = ("""
-create table if not exists time
+create table if not exists time_dim
 (start_time      timestamp primary key, 
  hour            smallint not null, 
  day             smallint not null, 
@@ -170,16 +171,16 @@ songplay_table_insert = ("""insert into songs_plays_fact
                                 session_id,
                                 e.location,
                                 user_agent
-                         from events_stg e join songs s
+                         from events_stg e join songs_dim s
                          on (e.song = s.title and e.length = s.duration)
-                         join artists a 
+                         join artists_dim a 
                          on (a.name =e.artist)
                          where e.page ='NextSong'; 
                          """)
 
 # Insert data into Dimesnion table
-# 104272
-song_table_insert = ("""insert into songs
+
+song_table_insert = ("""insert into songs_dim
                      (
                      song_id,
                      title,
@@ -195,7 +196,7 @@ song_table_insert = ("""insert into songs
                        from songs_stg    
                      """)
 
-user_table_insert = ("""insert into users
+user_table_insert = ("""insert into users_dim
                        (
                        user_id, 
                        first_name, 
@@ -211,9 +212,9 @@ user_table_insert = ("""insert into users
                          from events_stg
                          where page ='NextSong';    
                        """)
-# 60150                
+                
 artist_table_insert = ("""
-                       insert into artists
+                       insert into artists_dim
                        (
                        artist_id, 
                        name, 
@@ -228,9 +229,9 @@ artist_table_insert = ("""
                               artist_longitude
                          from songs_stg;    
                        """)
-# 8023
+
 time_table_insert = ("""
-                     insert into time
+                     insert into time_dim
                      (
                       start_time, 
                       hour, 

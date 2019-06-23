@@ -1,11 +1,11 @@
-"""Functions to state maintain redshift clauster on AWS. 
+"""Functions to state maintain redshift cluster on AWS. 
 
 This file can also be imported as a module and contains the following
 functions:
 
-    * create_iam_role - Creating IAM role on AWS and attching appropriate policy.   
+    * create_iam_role - Creating IAM role on AWS and attaching appropriate policy.   
     * create_redshift_cluster - Create redshift cluster and starting it. 
-    * redshiftProps - Returns properties of Redshift.
+    * redshiftProps - Returns properties of Redshift cluster.
     * delete_redshift_cluster - Deleting the redshift cluster from AWS.
 """
 

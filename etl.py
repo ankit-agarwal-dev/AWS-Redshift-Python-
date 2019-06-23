@@ -5,9 +5,9 @@ tables.
 This file can also be imported as a module and contains the following
 functions:
 
-    * load_staging_tables - Procedsing Songs and Events Json file and loading 
+    * load_staging_tables - Processing Songs and Events Json file and loading 
       data into staging tables.  
-    * insert_tables - Insert Data into Fact and Diomension tablr from staging 
+    * insert_tables - Insert Data into Fact and Diomensions table from staging 
       tables. 
     * main - the main function of the script
 """
@@ -56,7 +56,7 @@ def insert_tables(cur, conn):
         None
     """
     
-    # Looping for populating Facts and Dimensions 
+    # Looping for populating Fact and Dimensions 
 
     for query in insert_table_queries:
         cur.execute(query)
