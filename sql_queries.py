@@ -23,6 +23,7 @@ time_table_drop = "drop table if exists time_dim;"
 # CREATE TABLES (Staging)
 
 # Page column as used Diskey because that would help fetch entire dat from one node.
+
 staging_events_table_create= ("""
  create table if not exists events_stg
  (
